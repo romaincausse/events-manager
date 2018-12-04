@@ -4,12 +4,16 @@
   "private": true,
   "dependencies": {
     "cuid": "^2.1.4",
+    "date-fns": "^2.0.0-alpha.25",
     "react": "^16.6.3",
+    "react-datepicker": "^2.0.0",
     "react-dom": "^16.6.3",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
+    "redux-form": "^7.4.2",
+    "revalidate": "^1.2.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.83.0"
   },
