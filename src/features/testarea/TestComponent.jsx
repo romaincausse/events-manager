@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Icon} from 'semantic-ui-react'
-import { incrementCounter, decrementCounter } from './testActions'
+import { Button} from 'semantic-ui-react'
+import { incrementCounter, decrementCounter, incrementAsync } from './testActions'
+import { openModal } from '../modals/modalActions'
 import Script from 'react-load-script'
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-import GoogleMapReact from 'google-map-react';
 
 const mapState = (state) => ({
-  data: state.test.data
+  data: state.test.data,
+  loading: state.test.loading
 })
 
 const actions = {
   incrementCounter,
-  decrementCounter
+  decrementCounter,
+  incrementAsync,
+  openModal
 }
-
-const Marker = () => <Icon name="marker" size="big" color="red"/>;
-
 
 class TestComponent extends Component {
 
@@ -38,7 +38,6 @@ class TestComponent extends Component {
    };
 
    handleScriptLoaded = () => {
-     console.log('LOADED')
      this.setState({
       scriptLoaded : true
      })
@@ -56,19 +55,19 @@ class TestComponent extends Component {
   };
 
   render() {
-    const { incrementCounter, decrementCounter, data } = this.props
+    const { incrementAsync, decrementCounter, openModal, data , loading} = this.props
     const {scriptLoaded} = this.state
-    console.log(scriptLoaded)
     return (
       <div>
-        {/* <Script 
+        <Script 
           url="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOe-PBP66vIJn9PZP0F6ZqeNQXSd1kO6g&libraries=places"
           onLoad={this.handleScriptLoaded}
-        /> */}
+        />
         <h1>Test Area</h1>
         <h3>The answer is: {data}</h3>
-        <Button onClick={incrementCounter} color="green" content="Increment" />
-        <Button onClick={decrementCounter} color="red" content="Decrement" />
+        <Button loading={loading} onClick={incrementAsync} color="green" content="Increment" />
+        <Button loading={loading} onClick={decrementCounter} color="red" content="Decrement" />
+        <Button onClick={() => openModal("TestModal", {data: 43})} color="teal" content="Open modal"/>
 
         <br /><br />
         {scriptLoaded && <PlacesAutocomplete
@@ -110,19 +109,7 @@ class TestComponent extends Component {
           )}
         </PlacesAutocomplete>
         }
-        <div style={{ height: '300px', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: "AIzaSyAOe-PBP66vIJn9PZP0F6ZqeNQXSd1kO6g" }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <Marker
-            lat={59.955413}
-            lng={30.337844}
-            text={'Kreyser Avrora'}
-          />
-        </GoogleMapReact>
-        </div>
+        
       </div>
     )
   }
