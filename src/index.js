@@ -4,6 +4,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
+import ReduxToaster from 'react-redux-toastr';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import App from './app/layout/App';
 import * as serviceWorker from './serviceWorker';
 import { configureStore } from './app/store/configureStore'
@@ -17,6 +19,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <ScrollToTop>
+        <ReduxToaster position="bottom-right" transitionIn="fadeIn" transitionOut="fadeOut" />
         <App />
       </ScrollToTop>
     </BrowserRouter>

@@ -6,7 +6,6 @@ import { composeValidators, combineValidators, isRequired, hasLengthGreaterThan 
 import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react'
 import cuid from 'cuid';
 import Script from 'react-load-script'
-import { format as dateFormat } from 'date-fns'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import { createEvent, updateEvent } from '../eventActions'
 import TextInput from '../../../app/common/form/TextInput'
@@ -92,7 +91,6 @@ class EventForm extends Component {
   }
 
   onFormSubmit = values => {
-    values.date = dateFormat(values.date, 'yyyy-MM-dd');
     values.venueLatLng = this.state.venueLatLng;
     if (this.props.initialValues.id) {
       this.props.updateEvent(values)
